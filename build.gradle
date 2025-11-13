@@ -1,0 +1,57 @@
+plugins {
+    id("com.android.application")
+    id("io.michaelrocks.paranoid")
+}
+
+android {
+    namespace 'com.epicgames.ue4'
+    compileSdk 33
+    ndkVersion "24.0.8215888"
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+  
+    defaultConfig {
+        applicationId "com.epicgames.ue4"
+        minSdkVersion 23
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+        externalNativeBuild {
+            ndkBuild {
+                abiFilters "arm64-v8a"
+            }
+        }
+        multiDexEnabled false
+        
+        
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            //useProguard true
+            multiDexEnabled false
+            debuggable false
+            jniDebuggable true
+            renderscriptDebuggable true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    
+}
